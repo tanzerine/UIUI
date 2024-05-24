@@ -1,4 +1,8 @@
 {
+    "homepage" : "https://tanzerine.github.io/UIUI/",
+  "scripts": {
+    "deploy":"gh-pages -d public"
+  },
   "dependencies": {
     "express": "^4.19.2",
     "socket.io": "^4.7.5"
