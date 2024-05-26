@@ -73,7 +73,7 @@ function draw() {
 
     // Display floating cursor
     fill(255,0,0);
-    ellipse(mouseX, mouseY, 20, 20); // Floating cursor as a small circle
+    ellipse(mouseX, mouseY, 25, 25); // Floating cursor as a small circle
 }
 
 class DisintegratingWord {
@@ -82,14 +82,14 @@ class DisintegratingWord {
         this.x = x;
         this.y = y;
         this.points = font.textToPoints(word, 0, 0, 64, {
-            sampleFactor: 0.8
+            sampleFactor: 0.7
         });
         this.points = this.points.map(p => {
             let pos = createVector(p.x + x, p.y + y);
-            let vel = p5.Vector.random2D().mult(random(0.0005, 0.005));
+            let vel = p5.Vector.random2D().mult(random(0.0005, 0.0009));
             return { pos: pos, vel: vel };
         });
-        this.disintegrateRate = 0.1; // Adjusted disintegration rate
+        this.disintegrateRate = 0.2; // Adjusted disintegration rate
         this.disintegration = 0;
         this.alpha = 255;
     }
@@ -116,7 +116,7 @@ class DisintegratingWord {
         noStroke();
         for (let i = 0; i < this.points.length; i++) {
             let p = this.points[i].pos;
-            rect(p.x, p.y, 7, 7);
+            rect(p.x, p.y, 5, 5);
         }
     }
 
