@@ -7,8 +7,8 @@ let lastBlinkTime = 0;
 let blinkInterval = 500; // milliseconds
 let font;
 
-// Replace 'your-app-name' with the name of your Heroku app
-let socket = new WebSocket('wss://waiting-picayune-canid.herokuapp.com');
+// Replace 'your-glitch-project' with the name of your Glitch project
+let socket = new WebSocket('wss://waiting-picayune-canid.glitch.me');
 
 socket.onmessage = function(event) {
     let data = JSON.parse(event.data);
@@ -16,6 +16,7 @@ socket.onmessage = function(event) {
         words.push(new DisintegratingWord(data.word, data.x, data.y));
     }
 };
+
 
 
 function preload() {
