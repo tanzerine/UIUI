@@ -7,6 +7,15 @@ let lastBlinkTime = 0;
 let blinkInterval = 500; // milliseconds
 let font;
 
+let socket = new WebSocket('wss://waiting-picayune-canid.glitch.me');
+
+socket.onmessage = function(event) {
+    let data = JSON.parse(event.data);
+    if (data.type === 'newWord') {
+        words.push(new DisintegratingWord(data.word, data.x, data.y));
+    }
+};
+
 function preload() {
     font = loadFont('Arial.ttf'); // Make sure to have an Arial font in the assets folder
 }
