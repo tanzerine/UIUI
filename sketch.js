@@ -7,7 +7,8 @@ let lastBlinkTime = 0;
 let blinkInterval = 500; // milliseconds
 let font;
 
-let socket = new WebSocket('wss://waiting-picayune-canid.glitch.me');
+// Replace 'your-app-name' with the name of your Heroku app
+let socket = new WebSocket('wss://waiting-picayune-canid.herokuapp.com');
 
 socket.onmessage = function(event) {
     let data = JSON.parse(event.data);
@@ -16,14 +17,23 @@ socket.onmessage = function(event) {
     }
 };
 
+
 function preload() {
     font = loadFont('Arial.ttf'); // Make sure to have an Arial font in the assets folder
 }
 
 function setup() {
-    noCursor();
-
     createCanvas(windowWidth, windowHeight);
+
+    // Setup WebSocket connection
+    socket = new WebSocket(`ws://${window.location.host}`);
+    
+    socket.onmessage = function(event) {
+        let data = JSON.parse(event.data);
+        if (data.type === 'newWord') {
+            words.push(new DisintegratingWord(data.word, data.x, data.y));
+        }
+    };
 
     // Allow users to add words by clicking
     canvas.addEventListener('click', (event) => {
@@ -37,7 +47,9 @@ function setup() {
     window.addEventListener('keydown', (event) => {
         if (isTyping) {
             if (event.key === 'Enter') {
+                let newWord = { word: currentInput, x: inputX, y: inputY };
                 words.push(new DisintegratingWord(currentInput, inputX, inputY));
+                socket.send(JSON.stringify({ type: 'newWord', ...newWord }));
                 isTyping = false;
             } else if (event.key === 'Backspace') {
                 currentInput = currentInput.slice(0, -1);
@@ -49,8 +61,7 @@ function setup() {
 }
 
 function draw() {
-    background(255);    
-
+    background(255);
     for (let i = words.length - 1; i >= 0; i--) {
         words[i].update();
         words[i].display();
@@ -61,8 +72,7 @@ function draw() {
 
     if (isTyping) {
         fill(0);
-        textFont(font);
-        textSize(64);
+        textSize(32);
         text(currentInput, inputX, inputY);
 
         // Display text insertion cursor
@@ -81,8 +91,9 @@ function draw() {
     }
 
     // Display floating cursor
-    fill(255,0,0);
-    ellipse(mouseX, mouseY, 25, 25); // Floating cursor as a small circle
+    fill(0);
+    noStroke();
+    ellipse(mouseX, mouseY, 5, 5); // Floating cursor as a small circle
 }
 
 class DisintegratingWord {
@@ -90,15 +101,22 @@ class DisintegratingWord {
         this.word = word;
         this.x = x;
         this.y = y;
-        this.points = font.textToPoints(word, 0, 0, 64, {
-            sampleFactor: 0.7
-        });
-        this.points = this.points.map(p => {
-            let pos = createVector(p.x + x, p.y + y);
-            let vel = p5.Vector.random2D().mult(random(0.0005, 0.0009));
-            return { pos: pos, vel: vel };
-        });
-        this.disintegrateRate = 0.2; // Adjusted disintegration rate
+        this.points = [];
+
+        // Generate points to fill the text
+        let bounds = font.textBounds(word, 0, 0, 32);
+        for (let i = 0; i < bounds.w; i += 5) {  // Adjust step size for denser points
+            for (let j = 0; j < bounds.h; j += 5) {  // Adjust step size for denser points
+                let testPoint = createVector(i, j);
+                if (font.contains(testPoint.x, testPoint.y, 32, word)) {
+                    let pos = createVector(testPoint.x + x + bounds.x, testPoint.y + y + bounds.y);
+                    let vel = p5.Vector.random2D().mult(random(0.5, 1.5));
+                    this.points.push({ pos: pos, vel: vel });
+                }
+            }
+        }
+
+        this.disintegrateRate = 0.02; // Adjusted disintegration rate
         this.disintegration = 0;
         this.alpha = 255;
     }
@@ -114,8 +132,8 @@ class DisintegratingWord {
         for (let point of this.points) {
             point.pos.add(point.vel);
         }
-        
-        this.alpha = map(this.points.length, 0, font.textToPoints(this.word, 0, 0, 64, {
+
+        this.alpha = map(this.points.length, 0, font.textToPoints(this.word, 0, 0, 32, {
             sampleFactor: 0.1
         }).length, 0, 255);
     }
@@ -125,7 +143,7 @@ class DisintegratingWord {
         noStroke();
         for (let i = 0; i < this.points.length; i++) {
             let p = this.points[i].pos;
-            rect(p.x, p.y, 5, 5);
+            rect(p.x, p.y, 4, 4); // Drawing rectangles instead of ellipses
         }
     }
 
