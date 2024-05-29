@@ -1,30 +1,26 @@
 const express = require('express');
-const WebSocket = require('ws');
+const http = require('http');
+const socketIo = require('socket.io');
+
 const app = express();
-const port = process.env.PORT || 3000;
+const server = http.createServer(app);
+const io = socketIo(server);
 
-const server = app.listen(port, () => {
-    console.log(`Server is listening on port ${port}`);
-});
+app.use(express.static('public'));
 
-const wss = new WebSocket.Server({ server });
+io.on('connection', (socket) => {
+    console.log('a user connected');
 
-wss.on('connection', (ws) => {
-    console.log('A new client connected!');
-
-    ws.on('message', (message) => {
-        wss.clients.forEach((client) => {
-            if (client.readyState === WebSocket.OPEN) {
-                client.send(message);
-            }
-        });
+    socket.on('new word', (wordData) => {
+        io.emit('new word', wordData);
     });
 
-    ws.on('close', () => {
-        console.log('A client disconnected.');
+    socket.on('disconnect', () => {
+        console.log('user disconnected');
     });
 });
 
-app.get('/', (req, res) => {
-    res.send('WebSocket server is running');
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
 });
