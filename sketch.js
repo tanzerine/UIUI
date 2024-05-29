@@ -7,34 +7,12 @@ let lastBlinkTime = 0;
 let blinkInterval = 500; // milliseconds
 let font;
 
-// Replace 'your-glitch-project' with the name of your Glitch project
-let socket = new WebSocket('wss://waiting-picayune-canid.glitch.me');
-
-socket.onmessage = function(event) {
-    let data = JSON.parse(event.data);
-    if (data.type === 'newWord') {
-        words.push(new DisintegratingWord(data.word, data.x, data.y));
-    }
-};
-
-
-
 function preload() {
-    font = loadFont('Arial.ttf'); // Make sure to have an Arial font in the assets folder
+    font = loadFont('assets/Arial.ttf'); // Make sure to have an Arial font in the assets folder
 }
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-
-    // Setup WebSocket connection
-    socket = new WebSocket(`ws://${window.location.host}`);
-    
-    socket.onmessage = function(event) {
-        let data = JSON.parse(event.data);
-        if (data.type === 'newWord') {
-            words.push(new DisintegratingWord(data.word, data.x, data.y));
-        }
-    };
 
     // Allow users to add words by clicking
     canvas.addEventListener('click', (event) => {
@@ -48,9 +26,7 @@ function setup() {
     window.addEventListener('keydown', (event) => {
         if (isTyping) {
             if (event.key === 'Enter') {
-                let newWord = { word: currentInput, x: inputX, y: inputY };
                 words.push(new DisintegratingWord(currentInput, inputX, inputY));
-                socket.send(JSON.stringify({ type: 'newWord', ...newWord }));
                 isTyping = false;
             } else if (event.key === 'Backspace') {
                 currentInput = currentInput.slice(0, -1);
