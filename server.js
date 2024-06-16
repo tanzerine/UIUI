@@ -6,21 +6,20 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server);
 
+const port = process.env.PORT || 3000;
+
 app.use(express.static('public'));
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
+  console.log('New client connected');
 
-    socket.on('new word', (wordData) => {
-        io.emit('new word', wordData);
-    });
+  socket.on('newWord', (data) => {
+    io.emit('newWord', data);
+  });
 
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
+  socket.on('disconnect', () => {
+    console.log('Client disconnected');
+  });
 });
 
-const PORT = process.env.PORT || 3000;
-server.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+server.listen(port, () => console.log(`Listening on port ${port}`));
