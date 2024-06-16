@@ -2,9 +2,9 @@
   "homepage": "https://tanzerine.github.io/UIUI/",
   "scripts": {},
   "dependencies": {
+    "98.css": "^0.1.20",
     "express": "^4.19.2",
     "gh-pages": "^6.1.1",
-    "socket.io": "^4.7.5",
-    "ws": "^8.17.0"
+    "socket.io": "^4.7.5"
   }
 }
