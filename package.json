@@ -6,17 +6,9 @@
     "start": "node server.js"
   },
   "dependencies": {
-<<<<<<< HEAD
     "98.css": "^0.1.20",
     "express": "^4.19.2",
     "gh-pages": "^6.1.1",
     "socket.io": "^4.7.5"
-=======
-    "express": "^4.17.1",
-    "ws": "^8.0.0"
-  },
-  "engines": {
-    "node": "14.x"
->>>>>>> ae0f248b628d4c53ba4018dc8e69db0fed12fcea
   }
 }
