@@ -307,7 +307,7 @@ class PixelizedWord {
         this.pixels = [];
         this.pixelSize = 2; // Size of each blocky pixel
         this.createPixelArray();
-        this.disappearRate = 0.1; // Adjust the rate of disappearance
+        this.disappearRate = 0.3; // Adjust the rate of disappearance
         this.disappearance = 0;
     }
 
