@@ -6,10 +6,15 @@
     <link rel="stylesheet" href="https://unpkg.com/98.css">
     <style>
         body {
+          background-image: url('supera.png');
+          background-size: cover;
             display: flex;
             width: 50vw;
             margin: 0;
-            padding: 0;
+            padding-top: 200px;
+            padding-bottom: 350px;
+            overflow-y: auto;
+            
         }
         #toolbar {
             width: 350px;
@@ -24,16 +29,17 @@
             position: relative;
         }
         canvas {
-            display: block;
+            display: block; 
+    
         }
     </style>
 </head>
 <body style="background-color:rgb(255)">
-    <div id="canvas-container" class="window" style="margin: 32px;">
+    <div id="canvas-container" class="window" style="margin: 64px;">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
         <script src="sketch.js"></script>
-        <div class="title-bar inactive">
-            <div class="title-bar-text">All right</div>
+        <div class="title-bar">
+            <div class="title-bar-text">Type Anything Here</div>
             <div class="title-bar-controls">
                 <button aria-label="Minimize"></button>
                 <button aria-label="Maximize"></button>
@@ -45,8 +51,8 @@
         </div>
 
 
-    <div id="toolbar" class="window" style="margin: 32px;width: 280px;">
-        <div class="title-bar inactive">
+    <div id="toolbar" class="window" style="margin: 64px;width: 280px;">
+        <div class="title-bar ">
             <div class="title-bar-text">Project Info</div>
             <div class="title-bar-controls">
                 <button aria-label="Minimize"></button>
@@ -55,75 +61,83 @@
             </div>
         </div>
         <div class="window-body">
-            <h3>Project Info</h3>
-            <p>This is the info for the project. You can add more details here as needed.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque scelerisque massa nec libero ultricies, nec sollicitudin erat venenatis. Vivamus vel nisi ut nisi volutpat commodo.</p>
-            <p>Proin consequat, felis vel tincidunt fringilla, erat nulla gravida nunc, nec fermentum erat purus ut libero. Nullam suscipit ligula at felis accumsan, et varius dolor tincidunt.</p>
+            <h3>Slipping words - disintegrate</h3>
+            <p>why do we treat digital information as some thing absolute and eternal.</p>
+            <p>infact, digital information is one of the most fragile and incomplete form of memory.</p>
+            <p>this place is designed to let you know that nothing digital is forever and just like the scribble on your note book it can fade into pixels.</p>
+            <p>here are some simple rules for the project.</p>
             <ul>
-                <li>A Task Manager</li>
-                <li>A Notepad</li>
-                <li>Or even a File Explorer!</li>
+                <li>Anybody can freely type anything you want</li>
+                <li>the words will gradually disintergrate</li>
+                <li>personal attachment with digital files</li>
             </ul>
 
         </div>
-         <div class="status-bar">
-            <p class="status-bar-field">Press F1 for help</p>
-            <p class="status-bar-field">Slide 1</p>
-            <p class="status-bar-field">CPU Usage: 14%</p>
-          </div>
+
 
           <div class="sunken-panel" style="height: 120px; width: 240px;">
             <table class="interactive">
               <thead>
                 <tr>
-                  <th>Name</th>
+                  <th>UserName</th>
+                  <th>TimeStamp</th>
+                  <th>Text</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td>MySQL ODBC 3.51 Driver</td>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
 
                 </tr>
                 <tr>
-                  <td>SQL Server</td>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
 
                 </tr>
                 <tr>
-                  <td>SQL Server</td>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
+
+                </tr>                <tr>
+                  <td>TaeYoonLee</td>
+                  <td>2024:06:16</td>
 
                 </tr>
-                <tr>
-                  <td>SQL Server</td>
 
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-          
-                </tr>
-                <tr>
-                  <td>SQL Server</td>
-                
-                </tr>
               </tbody>
             </table>
-          </div>
 
+          </div>
+          <div class="status-bar" style="padding-top: 20px;">
+            <p class="status-bar-field">made by @eyebbazill</p>
+            <p class="status-bar-field">about</p>
+            <p class="status-bar-field">contact</p>
+          </div>
     </div>
     
 </body>
