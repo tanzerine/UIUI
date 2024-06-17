@@ -9,14 +9,14 @@ let lastBlinkTime = 0;
 let blinkInterval = 500; // milliseconds
 
 let fonts = [];
-let fontNames = ['Old']; // Add more fonts if needed
+let fontNames = ['Arial','Old','Georgia']; // Add more fonts if needed
 
 let disintegrationColors = [
     { r: 0, g: 0, b: 255 }, // Blue
     { r: 255, g: 165, b: 0 }, // Orange
     { r: 128, g: 128, b: 128 }, // Grey
     { r: 0, g: 128, b: 0 } // Green
-];
+]; 
 
 let grid = [];
 let cellSize = 10;
@@ -31,7 +31,7 @@ function preload() {
 }
 
 function setup() {
-    let canvas = createCanvas(windowWidth*0.8, windowHeight*0.85);
+    let canvas = createCanvas(windowWidth*0.7, windowHeight*0.85);
     canvas.parent('canvas-container');
     createGrid();
 
@@ -48,7 +48,7 @@ function setup() {
         if (isTyping) {
             if (event.key === 'Enter') {
                 let randomFont = random(fonts);
-                let randomFontSize = random(64, 72);
+                let randomFontSize = random(64, 124);
                 let newWord = new PixelizedWord(currentInput, inputX, inputY, randomFont, randomFontSize);
                 words.push(newWord);
                 addPixelsToGrid(newWord.pixels);
@@ -208,7 +208,7 @@ class Vine {
         this.frameCounter = 0;
         this.pixelSize = 2;
         this.noiseOffset = random(1000);
-        this.maxBranches = 3; // Limit the number of branches
+        this.maxBranches = 2; // Limit the number of branches
         this.branchCount = 0;
         this.maxLength = 200; // Maximum length of the vine
         this.stoppedGrowing = false;
@@ -260,7 +260,7 @@ class Vine {
                 }
 
                 // Randomly create branches with a limit
-                if (random() < 0.05 && this.branchCount < this.maxBranches) {
+                if (random() < 0.02 && this.branchCount < this.maxBranches) {
                     let branch = new Vine(newPixelX, newPixelY);
                     branch.frameCounter = this.frameCounter; // Synchronize branch growth with parent vine
                     vines.push(branch);
@@ -307,7 +307,7 @@ class PixelizedWord {
         this.pixels = [];
         this.pixelSize = 2; // Size of each blocky pixel
         this.createPixelArray();
-        this.disappearRate = 0.1; // Adjust the rate of disappearance
+        this.disappearRate = 0.01; // Adjust the rate of disappearance
         this.disappearance = 0;
     }
 
